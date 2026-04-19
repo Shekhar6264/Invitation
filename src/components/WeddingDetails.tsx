@@ -1,27 +1,33 @@
 import { motion } from "framer-motion";
 import { Calendar, Clock, MapPin } from "lucide-react";
 import ScratchReveal from "@/components/ScratchReveal";
+
 const details = [
   { icon: Calendar, label: "Date", value: "Wednesday, April 29, 2026", type: "scratch" },
   { icon: Clock, label: "Time", value: "10:00 AM Onwards" },
-  { icon: MapPin, label: "Venue", value: "Shiva Sai Function Hall", link: "https://maps.app.goo.gl/FB6XVCzbmT1C9GwF8?g_st=aw" },
+  {
+    icon: MapPin,
+    label: "Venue",
+    value: "Shiva Sai Function Hall",
+    link: "https://maps.app.goo.gl/FB6XVCzbmT1C9GwF8?g_st=aw",
+  },
 ];
 
 const WeddingDetails = () => {
   return (
-    <section className="py-20 px-6">
+    <section className="px-6 py-20">
       <motion.div
-        className="text-center mb-12"
+        className="mb-12 text-center"
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
       >
         <p className="font-script text-2xl text-gold-light">Save the Date</p>
-        <h2 className="font-display text-3xl md:text-4xl font-bold text-cream mt-2">
+        <h2 className="mt-2 font-display text-3xl font-bold text-cream md:text-4xl">
           Wedding Details
         </h2>
       </motion.div>
 
-      <div className="max-w-md mx-auto space-y-4">
+      <div className="mx-auto max-w-md space-y-4">
         {details.map((item, i) => (
           <motion.div
             key={item.label}
@@ -35,8 +41,8 @@ const WeddingDetails = () => {
             transition={{ delay: i * 0.15 }}
           >
             {item.type !== "scratch" && (
-              <div className="w-12 h-12 rounded-full bg-gold/10 flex items-center justify-center">
-                <item.icon className="w-5 h-5 text-gold" />
+              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gold/10">
+                <item.icon className="h-5 w-5 text-gold" />
               </div>
             )}
 
@@ -45,24 +51,27 @@ const WeddingDetails = () => {
                 {/* {item.label} */}
               </p>
 
-              {/* 🎟️ SCRATCH CARD */}
               {item.type === "scratch" ? (
                 <div className="mt-2">
                   <ScratchReveal />
-                  <p className="text-xs text-gray-400 mt-1">Scratch to reveal ✨</p>
+                  <p className="mt-1 text-xs text-gray-400">Scratch to reveal</p>
                 </div>
               ) : item.link ? (
                 <a
                   href={item.link}
                   target="_blank"
-                  className="text-cream font-display text-lg hover:text-gold"
+                  rel="noreferrer"
+                  className="inline-flex flex-col text-lg text-cream hover:text-gold font-display"
                 >
-                  {item.value} ↗
+                  <span>
+                    {item.value} <span aria-hidden="true">&#8599;</span>
+                  </span>
+                  <span className="font-body text-sm text-gold-light">
+                    Click here for location <span aria-hidden="true">&#8599;</span>
+                  </span>
                 </a>
               ) : (
-                <p className="text-cream font-display text-lg">
-                  {item.value}
-                </p>
+                <p className="text-lg text-cream font-display">{item.value}</p>
               )}
             </div>
           </motion.div>
